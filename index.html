@@ -14,18 +14,29 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Reggae+One&family=Yuji+Syuku&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍥</text></svg>" />
 </head>
 <body>
-  <!-- Animated background -->
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-glow" aria-hidden="true"></div>
+  <!-- Intro loader: spinning Rasengan + Konoha greeting -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="rasengan"><span></span><span></span><span></span></div>
+    <p class="intro__jp">木ノ葉隠れの里</p>
+    <p class="intro__en">ENTERING THE HIDDEN LEAF…</p>
+  </div>
 
-  <!-- Nav -->
+  <!-- Animated background -->
+  <div class="bg-sky" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <canvas class="leaves" id="leaves" aria-hidden="true"></canvas>
+
+  <!-- Nav (Hidden Leaf headband style) -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__brand">VSP<span>.</span></a>
+    <a href="#top" class="nav__brand" aria-label="Home">
+      <span class="leaf-mark" aria-hidden="true"></span>
+      <span class="nav__brand-text">V SAI<span class="dot-jp">忍</span></span>
+    </a>
     <nav class="nav__links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -43,14 +54,15 @@
     <section class="hero">
       <div class="hero__inner">
         <p class="hero__eyebrow">
-          <span class="dot"></span> Available for high-impact engineering roles
+          <span class="dot"></span> Available for high-impact engineering missions
         </p>
-        <h1 class="hero__title">
+        <h1 class="hero__title" data-text="V Sai Purandhara">
           V Sai Purandhara
         </h1>
         <h2 class="hero__subtitle">
           <span class="grad">Full Stack</span> &amp; <span class="grad">AI/ML</span> Engineer
         </h2>
+        <p class="hero__jp">フルスタック・忍者エンジニア</p>
         <p class="hero__lead">
           I build end-to-end systems at <strong>Jio Platforms</strong> — from high-throughput
           Java/Spring Boot microservices and React/Angular frontends to production
@@ -59,8 +71,8 @@
         </p>
 
         <div class="hero__cta">
-          <a class="btn btn--primary" href="#projects">View Projects</a>
-          <a class="btn btn--ghost" href="#contact">Get in touch</a>
+          <a class="btn btn--primary" href="#projects">View Missions</a>
+          <a class="btn btn--ghost" href="#contact">Summon Me</a>
         </div>
 
         <ul class="hero__stats">
@@ -70,13 +82,26 @@
           <li><strong data-count="50" data-suffix="×">50×</strong><span>Perf Improvement</span></li>
         </ul>
       </div>
+
+      <!-- Photo in a spinning chakra / headband ring -->
+      <div class="hero__avatar">
+        <div class="chakra-ring"></div>
+        <div class="headband-ring" aria-hidden="true"></div>
+        <div class="avatar-frame">
+          <img src="me.jpg" alt="V Sai Purandhara" class="avatar-img" id="avatarImg"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <div class="avatar-fallback">VSP<small>add me.jpg</small></div>
+          <span class="leaf-mark leaf-mark--badge" aria-hidden="true"></span>
+        </div>
+        <div class="rasengan rasengan--float"><span></span><span></span><span></span></div>
+      </div>
     </section>
 
     <!-- About -->
     <section class="section" id="about">
       <div class="section__head reveal">
-        <span class="section__index">01</span>
-        <h2 class="section__title">About</h2>
+        <span class="section__index" data-kanji="壱">01</span>
+        <h2 class="section__title" data-jp="プロフィール">About</h2>
       </div>
       <div class="about reveal">
         <div class="about__text">
@@ -112,8 +137,8 @@
     <!-- Skills -->
     <section class="section" id="skills">
       <div class="section__head reveal">
-        <span class="section__index">02</span>
-        <h2 class="section__title">Technical Skills</h2>
+        <span class="section__index" data-kanji="弐">02</span>
+        <h2 class="section__title" data-jp="術 — Jutsu Arsenal">Technical Skills</h2>
       </div>
       <div class="skills">
         <article class="skill-card reveal">
@@ -178,8 +203,8 @@
     <!-- Experience -->
     <section class="section" id="experience">
       <div class="section__head reveal">
-        <span class="section__index">03</span>
-        <h2 class="section__title">Experience</h2>
+        <span class="section__index" data-kanji="参">03</span>
+        <h2 class="section__title" data-jp="任務履歴 — Mission Log">Experience</h2>
       </div>
 
       <div class="timeline">
@@ -224,8 +249,8 @@
     <!-- Projects -->
     <section class="section" id="projects">
       <div class="section__head reveal">
-        <span class="section__index">04</span>
-        <h2 class="section__title">Featured Projects</h2>
+        <span class="section__index" data-kanji="肆">04</span>
+        <h2 class="section__title" data-jp="S級任務 — S-Rank Missions">Featured Projects</h2>
       </div>
 
       <div class="projects">
@@ -338,8 +363,8 @@
     <!-- Contact -->
     <section class="section section--contact" id="contact">
       <div class="contact reveal">
-        <span class="section__index">05</span>
-        <h2 class="contact__title">Let's build something great.</h2>
+        <span class="section__index" data-kanji="伍">05</span>
+        <h2 class="contact__title">Let's build something legendary.</h2>
         <p class="contact__lead">
           Open to roles in full-stack engineering, backend systems, and applied AI/ML.
           Reach out — I'd love to talk.
@@ -347,7 +372,7 @@
         <div class="contact__links">
           <a class="btn btn--primary" href="mailto:purandhara999@gmail.com">✉️ purandhara999@gmail.com</a>
           <a class="btn btn--ghost" href="https://github.com/sai-purandhara" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn btn--ghost" href="https://www.linkedin.com/in/sai-purandhara" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/in/sai-purandhara-a7170012b/" target="_blank" rel="noopener">LinkedIn</a>
           <a class="btn btn--ghost" href="tel:+919064563812">📞 +91 90645 63812</a>
         </div>
       </div>
