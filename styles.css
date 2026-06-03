@@ -179,6 +179,13 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Hero avatar (chakra ring) ---------- */
 .hero__avatar { position: relative; display: grid; place-items: center; aspect-ratio: 1; max-width: 360px; margin: 0 auto; width: 100%; }
+/* Pulsing battle aura behind the portrait */
+.hero__avatar::before {
+  content: ""; position: absolute; inset: -8%; border-radius: 50%; z-index: -1;
+  background: radial-gradient(circle, rgba(255,122,24,.55) 0%, rgba(46,163,255,.35) 45%, transparent 70%);
+  filter: blur(14px); animation: aura 3.2s ease-in-out infinite;
+}
+@keyframes aura { 0%,100% { transform: scale(1); opacity: .7; } 50% { transform: scale(1.12); opacity: 1; } }
 .chakra-ring, .headband-ring { position: absolute; border-radius: 50%; inset: 0; }
 .chakra-ring {
   background: conic-gradient(from 0deg, transparent, var(--orange), transparent 30%, var(--blue) 60%, transparent 75%, var(--orange-2));
@@ -195,7 +202,19 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 0 40px rgba(255,122,24,.45), inset 0 0 30px rgba(0,0,0,.5);
   background: var(--card);
 }
-.avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar-img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; display: block;
+  filter: contrast(1.08) saturate(.85) brightness(1.02);
+  transition: filter .5s ease, transform .5s ease;
+}
+.avatar-frame:hover .avatar-img { filter: contrast(1.12) saturate(1.25) brightness(1.06); transform: scale(1.06); }
+/* Chakra duotone wash that fades on hover (charge-up) */
+.avatar-frame::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: 50%;
+  background: linear-gradient(150deg, rgba(255,122,24,.35), transparent 45%, rgba(46,163,255,.4));
+  mix-blend-mode: overlay; opacity: .9; transition: opacity .5s ease;
+}
+.avatar-frame:hover::after { opacity: .25; }
 .avatar-fallback {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   width: 100%; height: 100%; font-family: "Russo One", sans-serif; font-size: 2.6rem; color: var(--orange);
