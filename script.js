@@ -68,6 +68,32 @@ const statIO = new IntersectionObserver(
 );
 document.querySelectorAll(".hero__stats strong").forEach((el) => statIO.observe(el));
 
+// ---------- Click-to-transform (anime flip) ----------
+const avatarFrame = document.getElementById("avatarFrame");
+const flip = document.getElementById("flip");
+const heroAvatar = document.querySelector(".hero__avatar");
+const avatarHint = document.getElementById("avatarHint");
+const doTransform = () => {
+  flip.classList.toggle("flipped");
+  // restart the pop + shockwave animations
+  avatarFrame.classList.remove("pop");
+  heroAvatar.classList.remove("burst");
+  void avatarFrame.offsetWidth;
+  avatarFrame.classList.add("pop");
+  heroAvatar.classList.add("burst");
+  if (avatarHint) {
+    avatarHint.textContent = flip.classList.contains("flipped")
+      ? "クリック ▸ REVERT"
+      : "クリック ▸ TRANSFORM";
+  }
+};
+if (avatarFrame && flip) {
+  avatarFrame.addEventListener("click", doTransform);
+  avatarFrame.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doTransform(); }
+  });
+}
+
 // ---------- Parallax on hero avatar ----------
 const avatar = document.querySelector(".hero__avatar");
 if (avatar && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
