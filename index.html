@@ -87,11 +87,22 @@
       <div class="hero__avatar">
         <div class="chakra-ring"></div>
         <div class="headband-ring" aria-hidden="true"></div>
-        <div class="avatar-frame">
-          <img src="me.jpg" alt="V Sai Purandhara" class="avatar-img" id="avatarImg"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="avatar-fallback">VSP<small>add me.jpg</small></div>
+        <div class="avatar-frame" id="avatarFrame" role="button" tabindex="0"
+             title="Click to transform!" aria-label="Click to transform into anime style">
+          <div class="flip" id="flip">
+            <div class="flip__face flip__front">
+              <img src="me.jpg" alt="V Sai Purandhara" class="avatar-img" id="avatarImg"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+              <div class="avatar-fallback">VSP<small>add me.jpg</small></div>
+            </div>
+            <div class="flip__face flip__back">
+              <img src="me-anime.gif" alt="V Sai Purandhara — anime style" class="avatar-img"
+                   onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src='me-anime.png';}else{this.style.display='none';this.nextElementSibling.style.display='flex';}" />
+              <div class="avatar-fallback avatar-fallback--anime">アニメ<small>add me-anime.gif</small></div>
+            </div>
+          </div>
         </div>
+        <span class="avatar-hint" id="avatarHint">クリック ▸ TRANSFORM</span>
         <span class="leaf-mark leaf-mark--badge" aria-hidden="true"></span>
         <div class="rasengan rasengan--float"><span></span><span></span><span></span></div>
       </div>
