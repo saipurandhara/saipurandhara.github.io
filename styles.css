@@ -189,17 +189,17 @@ a { color: inherit; text-decoration: none; }
 .chakra-ring, .headband-ring { position: absolute; border-radius: 50%; inset: 0; }
 .chakra-ring {
   background: conic-gradient(from 0deg, transparent, var(--orange), transparent 30%, var(--blue) 60%, transparent 75%, var(--orange-2));
-  filter: blur(2px); animation: spin 8s linear infinite;
-  mask: radial-gradient(transparent 60%, #000 61%);
-  -webkit-mask: radial-gradient(transparent 60%, #000 61%);
+  filter: blur(1px); animation: spin 8s linear infinite;
+  mask: radial-gradient(closest-side, transparent 88%, #000 89%);
+  -webkit-mask: radial-gradient(closest-side, transparent 88%, #000 89%);
 }
 .headband-ring {
-  inset: 8%; border: 3px dashed rgba(94,200,255,.45); animation: spin 22s linear infinite reverse;
+  inset: 3%; border: 2px dashed rgba(94,200,255,.4); animation: spin 26s linear infinite reverse;
 }
 .avatar-frame {
-  position: relative; width: 72%; aspect-ratio: 1; border-radius: 50%;
-  overflow: hidden; border: 4px solid rgba(255,174,60,.7);
-  box-shadow: 0 0 40px rgba(255,122,24,.45), inset 0 0 30px rgba(0,0,0,.5);
+  position: relative; width: 84%; aspect-ratio: 1; border-radius: 50%;
+  overflow: hidden; border: 4px solid rgba(255,174,60,.75);
+  box-shadow: 0 0 40px rgba(255,122,24,.4), inset 0 0 30px rgba(0,0,0,.45);
   background: var(--card);
 }
 .avatar-img {
@@ -222,11 +222,11 @@ a { color: inherit; text-decoration: none; }
 }
 .avatar-fallback small { font-family: "M PLUS Rounded 1c"; font-size: .7rem; color: var(--faint); margin-top: 6px; letter-spacing: 1px; }
 .leaf-mark--badge {
-  position: absolute; bottom: 6%; right: 6%; width: 44px; height: 44px; z-index: 3;
-  background-color: #0a0e1a; border-radius: 50%; padding: 6px; border: 2px solid var(--orange);
+  position: absolute; bottom: 4%; right: 8%; width: 46px; height: 46px; z-index: 5;
+  background-color: #0a0e1a; border-radius: 50%; padding: 7px; border: 2px solid var(--orange);
   box-shadow: 0 0 16px rgba(255,122,24,.6);
 }
-.rasengan--float { position: absolute; top: 2%; left: 0; }
+.rasengan--float { position: absolute; top: 0; left: 2%; z-index: 5; }
 
 /* ---------- Sections ---------- */
 .section { max-width: var(--maxw); margin: 0 auto; padding: 90px clamp(20px, 5vw, 48px); position: relative; }
