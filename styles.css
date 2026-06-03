@@ -186,22 +186,50 @@ a { color: inherit; text-decoration: none; }
   filter: blur(14px); animation: aura 3.2s ease-in-out infinite;
 }
 @keyframes aura { 0%,100% { transform: scale(1); opacity: .7; } 50% { transform: scale(1.12); opacity: 1; } }
-.chakra-ring, .headband-ring { position: absolute; border-radius: 50%; inset: 0; }
-.chakra-ring {
-  background: conic-gradient(from 0deg, transparent, var(--orange), transparent 30%, var(--blue) 60%, transparent 75%, var(--orange-2));
-  filter: blur(1px); animation: spin 8s linear infinite;
-  mask: radial-gradient(closest-side, transparent 88%, #000 89%);
-  -webkit-mask: radial-gradient(closest-side, transparent 88%, #000 89%);
+/* Shockwave on transform */
+.hero__avatar::after {
+  content: ""; position: absolute; inset: 6%; border-radius: 50%; pointer-events: none;
+  border: 3px solid var(--orange-2); opacity: 0; z-index: 7;
 }
+.hero__avatar.burst::after { animation: shock .7s ease-out; }
+@keyframes shock { 0% { transform: scale(.7); opacity: .9; } 100% { transform: scale(1.5); opacity: 0; } }
+.chakra-ring, .headband-ring { position: absolute; border-radius: 50%; }
+/* Thin spinning chakra rim that hugs the photo (gradient-ring technique) */
+.chakra-ring {
+  inset: 7%;
+  background: conic-gradient(from 0deg, var(--orange), var(--orange-2), var(--blue-2), var(--blue), var(--orange));
+  padding: 6px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  filter: drop-shadow(0 0 8px rgba(255,122,24,.5));
+  animation: spin 9s linear infinite;
+}
+/* Faint outer dashed ring */
 .headband-ring {
-  inset: 3%; border: 2px dashed rgba(94,200,255,.4); animation: spin 26s linear infinite reverse;
+  inset: 0; border: 2px dashed rgba(94,200,255,.3); animation: spin 30s linear infinite reverse;
 }
 .avatar-frame {
-  position: relative; width: 84%; aspect-ratio: 1; border-radius: 50%;
-  overflow: hidden; border: 4px solid rgba(255,174,60,.75);
-  box-shadow: 0 0 40px rgba(255,122,24,.4), inset 0 0 30px rgba(0,0,0,.45);
-  background: var(--card);
+  position: relative; width: 80%; aspect-ratio: 1; border-radius: 50%;
+  border: 3px solid rgba(255,174,60,.6);
+  box-shadow: 0 0 36px rgba(255,122,24,.35), inset 0 0 26px rgba(0,0,0,.4);
+  background: var(--card); cursor: pointer; perspective: 1000px; z-index: 4;
 }
+/* 3D flip: front = real photo, back = anime self */
+.flip { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.6,.05,.2,1); }
+.flip.flipped { transform: rotateY(180deg); }
+.flip__face { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip__back { transform: rotateY(180deg); }
+.avatar-fallback--anime { color: var(--blue-2); font-family: "Reggae One", sans-serif; background: radial-gradient(circle, #1a1140, #0a0e1a); }
+/* Transform burst */
+.avatar-frame.pop { animation: pop .6s ease; }
+@keyframes pop { 0% { transform: scale(1); } 28% { transform: scale(.9); } 60% { transform: scale(1.06); } 100% { transform: scale(1); } }
+/* Click hint */
+.avatar-hint {
+  position: absolute; bottom: -34px; left: 50%; transform: translateX(-50%);
+  font-family: "Russo One", sans-serif; font-size: .68rem; letter-spacing: 2px; color: var(--orange-2);
+  white-space: nowrap; opacity: .85; animation: bob 2s ease-in-out infinite; pointer-events: none; z-index: 6;
+}
+@keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(4px); } }
 .avatar-img {
   width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; display: block;
   filter: contrast(1.08) saturate(.85) brightness(1.02);
@@ -222,11 +250,12 @@ a { color: inherit; text-decoration: none; }
 }
 .avatar-fallback small { font-family: "M PLUS Rounded 1c"; font-size: .7rem; color: var(--faint); margin-top: 6px; letter-spacing: 1px; }
 .leaf-mark--badge {
-  position: absolute; bottom: 4%; right: 8%; width: 46px; height: 46px; z-index: 5;
-  background-color: #0a0e1a; border-radius: 50%; padding: 7px; border: 2px solid var(--orange);
-  box-shadow: 0 0 16px rgba(255,122,24,.6);
+  position: absolute; bottom: -2%; left: 50%; transform: translateX(-50%);
+  width: 48px; height: 48px; z-index: 6;
+  background-color: #0a0e1a; border-radius: 50%; padding: 8px; border: 2px solid var(--orange);
+  box-shadow: 0 0 18px rgba(255,122,24,.6);
 }
-.rasengan--float { position: absolute; top: 0; left: 2%; z-index: 5; }
+.rasengan--float { position: absolute; top: 4%; left: 2%; z-index: 6; }
 
 /* ---------- Sections ---------- */
 .section { max-width: var(--maxw); margin: 0 auto; padding: 90px clamp(20px, 5vw, 48px); position: relative; }
